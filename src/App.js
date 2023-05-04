@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from './Components/Header';
-//import PersonList from './Components/PersonList';
-import Test from './Components/Test';
+import PersonList from './Components/PersonList';
+
 
 function App() {
 
   return (
   <div className='App'>
     <Header />
-    <Test />
+    <PersonList />
  </div>
   ) 
 }

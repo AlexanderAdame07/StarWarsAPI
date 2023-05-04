@@ -1,53 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import CharacterTable from './CharacterTable';
-
-
-let starWarsPeople = "https://swapi.dev/api/people/?format=json"
-let starWarsPlanets = "https://swapi.dev/api/planets/?format=json"
-let starWarsSpecies = "https://swapi.dev/api/species/?format=json"
+import PageLinks from './PageNav';
 
 const PersonList = () => {
 
-  const [people, setPeople] = useState([])
-  const [planets, setPlanets] = useState([])
-  const [species, setSpecies] = useState([])
+  const [people, setPeople] = useState([]);
+  const [starWarsPeopleUrl, setStarWarsPeopleUrl] = useState("https://swapi.dev/api/people/?search=");
+
+  async function fetchPeople(searchTerm) {
+    let peopleResponse = await fetch(starWarsPeopleUrl + searchTerm);
+    let peopleResponseJsonResult = await peopleResponse.json();
+    let people = peopleResponseJsonResult.results;
+
+    for (let i = 0; i < people.length; i++) {
+      let person = people[i];
+      let homeworldResponse = await fetch(person.homeworld);
+      let homeworldJson = await homeworldResponse.json();
+      if (person.species != ""){
+        let characterSpeciesResponse = await fetch(person.species);
+        let speciesJson = await characterSpeciesResponse.json();
+        people[i].species = speciesJson.name
+      } else people[i].species = "unknown"
+
+      people[i].homeworld = homeworldJson.name;
+    }
+
+    setPeople(people);
+  } 
+  async function searchPeople(event) {
+    fetchPeople(event.target.value)
+  }
 
 React.useEffect(() => {
-    
-    async function fetchPeople() {
-      let res1 = await fetch(starWarsPeople)
-      let data1 = await res1.json(); 
-      setPeople(data1.results)
-    }
-
-      async function fetchPlanets() {
-      let res = await fetch(starWarsPlanets)
-      let data = await res.json();
-      setPlanets(data.results)
-    }
-  
-
-    async function fetchSpecies(){
-      let res = await fetch(starWarsSpecies)
-      let data = await res.json();
-      setSpecies(data.results)
-    }
-    
-  fetchPeople();
-  fetchPlanets();
-  fetchSpecies();
-}, [])
-
-console.log('people', people);
-console.log('planets', planets);
-console.log('species', species);
+  fetchPeople('');
+}, [starWarsPeopleUrl])
 
   return (
 <div>
+<div style={{ textAlign: 'center', backgroundColor: 'lightgray' }}>
+            <label htmlFor="characterinput">Select Character</label>
+            <input type="text" id="characterinput" onChange={searchPeople}/>
+        </div>
     <CharacterTable 
     characterArray={people}
     />
+    <PageLinks callback={ updatedUrl => { 
+      setStarWarsPeopleUrl(updatedUrl)
+    }}/>
 </div>
   )
 };

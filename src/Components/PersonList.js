@@ -28,9 +28,6 @@ const PersonList = () => {
 
     setPeople(people);
   } 
-  async function searchPeople(event) {
-    fetchPeople(event.target.value)
-  }
 
 React.useEffect(() => {
   fetchPeople('');
@@ -38,10 +35,7 @@ React.useEffect(() => {
 
   return (
 <div>
-<div style={{ textAlign: 'center', backgroundColor: 'lightgray' }}>
-            <label htmlFor="characterinput">Select Character</label>
-            <input type="text" id="characterinput" onChange={searchPeople}/>
-        </div>
+
     <CharacterTable 
     characterArray={people}
     />

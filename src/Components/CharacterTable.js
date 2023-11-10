@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavItem } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table'
 
 function CharacterTable ({ characterArray }) {

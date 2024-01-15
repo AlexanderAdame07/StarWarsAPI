@@ -1,5 +1,7 @@
 ## StarWars API
 
+<img width="1440" alt="Screen Shot 2024-01-15 at 12 43 31 PM" src="https://github.com/AlexanderAdame07/StarWarsAPI/assets/110954253/bd7b5b73-e136-4fb9-80b3-bcf6df960353">
+
 
 Live Link: https://655118f5ef6b6b2985f300db--keen-boba-9a81e1.netlify.app/
 

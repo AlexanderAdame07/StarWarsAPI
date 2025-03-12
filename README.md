@@ -17,6 +17,5 @@ This React project leverages the Star Wars API to dynamically fetch and display 
 - Arrays
 
 
-### Author 
-Alexander Adame; Future Software Developer; https://www.linkedin.com/in/alexander-adame-david/
+
 
